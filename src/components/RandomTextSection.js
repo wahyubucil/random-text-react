@@ -48,9 +48,21 @@ class RandomTextSection extends Component {
     return (
       <CenterVertical>
         <RandomText>{this.state.randomText}</RandomText>
-        <RandomButton href="#">GO!</RandomButton>
+        <RandomButton 
+          href="#"
+          onClick={event => {
+            event.preventDefault()
+            this.handleRandomText()
+          }}
+        >
+          GO!
+        </RandomButton>
       </CenterVertical>
     )
+  }
+
+  handleRandomText() {
+    this.setState({ randomText: 'Text change' })
   }
 }
 
