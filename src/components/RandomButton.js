@@ -26,9 +26,8 @@ class RandomButton extends Component {
 
   randomButtonEvent = (event) => {
     event.preventDefault()
-    if (this.props.stop) {
-      // If the random is stop, then play!
-      this.props.onTriggerRandom()
+    if (!this.props.play) {
+      this.props.onPlayRandom()
       this.setState({ buttonText: 'STOP!' })
     } else {
       this.props.onStopRandom()

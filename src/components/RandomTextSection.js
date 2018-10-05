@@ -28,11 +28,11 @@ class RandomTextSection extends Component {
   
   state = {
     randomText: '',
-    randomButtonStop: true
+    playStatus: false
   }
 
-  handleTriggerRandom = () => {
-    this.setState({ randomButtonStop: false })
+  handlePlayRandom = () => {
+    this.setState({ playStatus: true })
     this.randomInterval = setInterval(() => {
       this.randomNumber = Math.floor(Math.random() * data.length)
       const selectedName = data[this.randomNumber]
@@ -42,7 +42,7 @@ class RandomTextSection extends Component {
 
   handleStopRandom = () => {
     clearInterval(this.randomInterval)
-    this.setState({ randomButtonStop: true })
+    this.setState({ playStatus: false })
   }
 
   componentDidMount() {
@@ -55,7 +55,7 @@ class RandomTextSection extends Component {
     return (
       <CenterVertical>
         <RandomText>{this.state.randomText}</RandomText>
-        <RandomButton stop={this.state.randomButtonStop} onTriggerRandom={this.handleTriggerRandom} onStopRandom={this.handleStopRandom} />
+        <RandomButton play={this.state.playStatus} onPlayRandom={this.handlePlayRandom} onStopRandom={this.handleStopRandom} />
       </CenterVertical>
     )
   }
