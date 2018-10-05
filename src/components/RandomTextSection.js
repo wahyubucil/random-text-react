@@ -20,17 +20,26 @@ const RandomText = styled.h1 `
 `
 
 class RandomTextSection extends Component {
+
+  constructor(props) {
+    super(props)
+    this.randomNumber = 0
+  }
   
   state = {
     randomText: ''
   }
 
   handleTriggerRandom = () => {
-    setInterval(() => {
-      const randomNumber = Math.floor(Math.random() * data.length)
-      const selectedName = data[randomNumber]
+    this.randomInterval = setInterval(() => {
+      this.randomNumber = Math.floor(Math.random() * data.length)
+      const selectedName = data[this.randomNumber]
       this.setState({ randomText: selectedName })
     }, 50)
+  }
+
+  handleStopRandom = () => {
+    clearInterval(this.randomInterval)
   }
 
   componentDidMount() {
