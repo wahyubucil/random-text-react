@@ -23,6 +23,7 @@ class RandomTextSection extends Component {
 
   constructor(props) {
     super(props)
+    this.names = data
     this.randomNumber = 0
   }
   
@@ -33,9 +34,10 @@ class RandomTextSection extends Component {
 
   handlePlayRandom = () => {
     this.setState({ playStatus: true })
+
     this.randomInterval = setInterval(() => {
       this.randomNumber = Math.floor(Math.random() * data.length)
-      const selectedName = data[this.randomNumber]
+      const selectedName = this.names[this.randomNumber]
       this.setState({ randomText: selectedName })
     }, 50)
   }
@@ -43,6 +45,9 @@ class RandomTextSection extends Component {
   handleStopRandom = () => {
     clearInterval(this.randomInterval)
     this.setState({ playStatus: false })
+
+    // Remove items after get selected
+    this.names.splice(this.randomNumber, 1)
   }
 
   componentDidMount() {
