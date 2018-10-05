@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import RandomButton from './RandomButton'
+
+import data from '../data/data'
+
 const CenterVertical = styled.section `
   align-content: center;
   display: flex;
@@ -15,27 +19,18 @@ const RandomText = styled.h1 `
   width: 100%;
 `
 
-const RandomButton = styled.a `
-  background-color: palevioletred;
-  border: 3px solid palevioletred;
-  color: #ffffff;
-  display: inline-block;
-  font-size: 18px;
-  margin: 0 auto;
-  padding: 18px 56px;
-  text-decoration: none;
-  transition: all 0.3s ease-in-out;
-
-  &:hover {
-    background: #ffffff;
-    color: palevioletred;
-  }
-`
-
 class RandomTextSection extends Component {
   
   state = {
     randomText: ''
+  }
+
+  handleTriggerRandom = () => {
+    setInterval(() => {
+      const randomNumber = Math.floor(Math.random() * data.length)
+      const selectedName = data[randomNumber]
+      this.setState({ randomText: selectedName })
+    }, 50)
   }
 
   componentDidMount() {
@@ -48,21 +43,9 @@ class RandomTextSection extends Component {
     return (
       <CenterVertical>
         <RandomText>{this.state.randomText}</RandomText>
-        <RandomButton 
-          href="#"
-          onClick={event => {
-            event.preventDefault()
-            this.handleRandomText()
-          }}
-        >
-          GO!
-        </RandomButton>
+        <RandomButton onTriggerRandom={this.handleTriggerRandom} />
       </CenterVertical>
     )
-  }
-
-  handleRandomText() {
-    this.setState({ randomText: 'Text change' })
   }
 }
 
