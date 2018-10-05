@@ -39,7 +39,7 @@ class RandomTextSection extends Component {
   }
 
   componentDidMount() {
-    if (this.state.randomText < 1) {
+    if (this.state.randomText.length < 1) {
       this.setState({ randomText: 'Ready for giveaway?' })
     }
   }
