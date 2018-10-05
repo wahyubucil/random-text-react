@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 const Button = styled.a `
@@ -18,18 +18,30 @@ const Button = styled.a `
   }
 `
 
-function RandomButton(props) {
-  return (
-    <Button
-      href="#"
-      onClick={event => {
-        event.preventDefault()
-        props.onTriggerRandom()
-      }}
-    >
-      GO!
-    </Button>
-  )
+class RandomButton extends Component {
+
+  state = {
+    buttonText: 'GO!'
+  }
+
+  randomButtonEvent = (event) => {
+    event.preventDefault()
+    if (this.props.stop) {
+      this.props.onTriggerRandom()
+      this.setState({ buttonText: 'STOP!' })
+    } else {
+      this.props.onStopRandom()
+      this.setState({ buttonText: 'GO!' })
+    }
+  }
+
+  render() {
+    return (
+      <Button href="#" onClick={this.randomButtonEvent}>
+        {this.state.buttonText}
+      </Button>
+    )
+  }
 }
 
 export default RandomButton
